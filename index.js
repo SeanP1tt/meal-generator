@@ -20,12 +20,10 @@ const TOKEN_PATH = 'token.json';
 // Load client secrets from a local file.
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname +'/public'));
-// app.get('/', function (req, res) {
-//   // res.render('index', {});
-// });
+
 if(process.env.NODE_ENV === 'production'){
     //set static folder
-    app.use(express.static('client/build'));
+    app.use(express.static('client/build'));//determine what this is for
 }
 app.get('/',(req, res) => {
     res.sendFile(path.join(__dirname, '/public/Index.html'));
@@ -45,9 +43,6 @@ app.post('/', (req, res) => {
 });
 
 
-// async function getToken(){
-//
-// };
 async function updateSheet(mealType, res, list){
   let token;
    fs.readFile('credentials.json', async (err, content) => {
