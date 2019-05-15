@@ -3,6 +3,7 @@ const readline = require('readline');
 const {google} = require('googleapis');
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 // Initial Config
 const app = express();
@@ -26,9 +27,9 @@ if(process.env.NODE_ENV === 'production'){
     //set static folder
     app.use(express.static('client/build'));
 }
-// app.get('*',(req, res) => {
-//     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-// });
+app.get('/',(req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 app.post('/', (req, res) => {
   let data = req.body;
   let mealType = (req.body.selector);
