@@ -3,8 +3,7 @@ $(document).ready(() => {
 
   $('#meal-button').on('click', function() {
      makeRequest($('#menu-options'));
-     $('#generator-form').reset();
-     return false;
+
 });
 //try hide and show
 $('.tab button').on('click', function(){
@@ -26,8 +25,7 @@ $('.tab button').on('click', function(){
 $('#add-button').on('click', function() {
    let data =$('.add-meal').serializeArray();
    makeRequest(data);
-   $('.add-meal').reset();
-   return false;
+
 });
 
 });
