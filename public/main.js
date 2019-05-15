@@ -3,6 +3,7 @@ $(document).ready(() => {
 
   $('#meal-button').on('click', function() {
      makeRequest($('#menu-options'));
+     $('#generator-form').reset();
      return false;
 });
 //try hide and show
@@ -23,18 +24,15 @@ $('.tab button').on('click', function(){
 });
 
 $('#add-button').on('click', function() {
-   console.log($('.add-meal').serializeArray());
    let data =$('.add-meal').serializeArray();
-   console.log(data);
    makeRequest(data);
-
+   $('.add-meal').reset();
    return false;
 });
 
 });
 function animateGoodExpressionRequest(statusCode, statusDescription, response) {
   let expressions = response;
-  console.log(expressions);
   if(expressions !='The meal has been added!'){
     expressions= expressions[Math.floor(Math.random() * expressions.length)];
     const $expressionTabs = $('#expressions-information .tabs').html('');
@@ -65,8 +63,6 @@ $.ajax(`/`, {
   type: "POST",
   data: data,
   success: function(response) {
-    console.log('succes');
-    console.log(response);
     animateGoodExpressionRequest('200', 'OK', response);
   },
   error: function() {
