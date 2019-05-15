@@ -25,10 +25,10 @@ app.use(express.static(__dirname +'/public'));
 // });
 if(process.env.NODE_ENV === 'production'){
     //set static folder
-    app.use(express.static('public'));
+    app.use(express.static('client/build'));
 }
 app.get('/',(req, res) => {
-    res.sendFile(path.join('public/index.html'));
+    res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 app.post('/', (req, res) => {
   let data = req.body;
