@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Meal Generator</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Random Meal Generator</h1>
+      <div class="tab">
+        <button class="viewtab active">Generate A Meal</button>
+        <button class="addtab">Add A Meal</button>
+      </div>
+      <div id="generator-form">
+      <form class="generate-meal active" >
+        <label for="menu-options"> Meal Type:</label>
+        <select class="dropdown" id="menu-options" name="selector">
+          <option value="Breakfast" name="Breakfast">Breakfast</option>
+          <option value="Lunch" name="Lunch">Lunch</option>
+          <option value="Dinner" name="Dinner">Dinner</option>
+          <option value="Snack" name="Snack">Snack</option>
+        </select>
+        <br>
+        <button type="submit" name="Generate" id="meal-button">Generate</button>
+      </form>
+      <form class="add-meal inactive">
+          <label for="add-options"> Meal Type:</label>
+        <select class="" id="add-options" name="selector">
+          <option value="Breakfast" name="Breakfast">Breakfast</option>
+          <option value="Lunch" name="Lunch">Lunch</option>
+          <option value="Dinner" name="Dinner">Dinner</option>
+          <option value="Snack" name="Snack">Snack</option>
+        </select>
+        <br>
+        <br>
+        <label for="meal-name"> Meal Name:</label>
+        <input type="text" id="menu-name" name="mealName">
+        <br>
+        <label for="cuisine"> Cuisine:</label>
+        <input type="text" id="cuisine" name="cuisine">
+        <br>
+        <label for="meal-name"> Link to Image URl:</label>
+        <input type="text" id="menu-name" name="imageLink">
+        <br>
+        <label for="meal-name"> Instructions:</label>
+        <textarea type="text" id="menu-name" name="instructions"></textarea>
+        <br>
+        <label for="meal-name"> Ingredients:</label>
+        <textarea type="text" id="menu-name" name="ingredients"></textarea>
+        <br>
+        <label for="meal-name"> Link to Recipe:</label>
+        <input type="text" id="menu-name" name="recipeLink">
+        <br>
+        <button type="submit" name="Add" id="add-button">Add Meal</button>
+      </form>
+    </div>
+    </div>
+    <div id="expressions-information" class="panel">
+      <ul class="tabs">
+      </ul>
+    </div>
+<script src="../index.js" type="text/javacsript"></script>
+  </body>
+</html>
