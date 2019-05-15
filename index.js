@@ -19,9 +19,9 @@ const TOKEN_PATH = 'token.json';
 // Load client secrets from a local file.
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname +'/public'));
-app.get('/', function (req, res) {
-  // res.render('index', {});
-});
+// app.get('/', function (req, res) {
+//   // res.render('index', {});
+// });
 app.post('/', (req, res) => {
   let data = req.body;
   let mealType = (req.body.selector);
