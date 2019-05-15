@@ -1,0 +1,25 @@
+{
+  "name": "meal-generator",
+  "version": "1.0.0",
+  "description": "a web app to help decide what to eat",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "googleapis": "^27.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \\\"Error: no test specified\\\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SeanP1tt/meal-generator.git"
+  },
+  "author": "Sean P",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SeanP1tt/meal-generator/issues"
+  },
+  "homepage": "https://github.com/SeanP1tt/meal-generator#readme"
+}
