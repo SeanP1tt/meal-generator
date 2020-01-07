@@ -113,7 +113,7 @@ background-color: #0091FF !important;
   text-align: center;
 }
 
-.tabs {
+.tabs, .tabs ul {
   text-align: center;
   padding: 0;
   font-family: Work Sans, sans-serif;
