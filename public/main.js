@@ -54,14 +54,18 @@ function animateBadExpressionRequest(statusCode, statusDescription){
 console.log("the request was bad");
 };
 
-
+function displayRecipe(statusCode, statusDescription, response){
+  const $expressionTabs = $('#expressions-information .tabs').html('');
+    $expressionTabs.append(response);
+}
 
 function makeRequest(data){
 $.ajax(`/`, {
   type: "POST",
   data: data,
   success: function(response) {
-    animateGoodExpressionRequest('200', 'OK', response);
+    console.log(response)
+    displayRecipe('200', 'OK', response);
   },
   error: function() {
     animateBadExpressionRequest('404', 'Not Found');

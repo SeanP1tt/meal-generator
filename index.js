@@ -1,9 +1,23 @@
 const fs = require('fs');
+const request = require('request');
+var rp = require('request-promise');
+const cheerio = require('cheerio');
 const readline = require('readline');
 const {google} = require('googleapis');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+
+const cookbook = {'breakfast': [
+'https://thepioneerwoman.com/cooking_cat/breakfast/'],
+'lunch': ['https://thepioneerwoman.com/cooking_cat/vegetarian/', 'https://thepioneerwoman.com/cooking_cat/sandwiches/'],
+'dinner': ['https://thepioneerwoman.com/cooking_cat/seafood/', 'https://thepioneerwoman.com/cooking_cat/vegetarian/', 'https://thepioneerwoman.com/cooking_cat/comfort-food/', 'https://thepioneerwoman.com/cooking_cat/pasta/']}
+
+let selectors = ['.recipe__list', '.recipe__list--ingredients', '#recipeDirectionsRoot', '.recipe-summary', '.ContentBundle', '.ContentBundle--spread-grid', '.Recipe', 
+'.grid-container',
+'#recipes',
+'.row'
+ ]
 
 // Initial Config
 const app = express();
@@ -17,6 +31,30 @@ const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 // time.
 const TOKEN_PATH = 'token.json';
 
+const recipe_selectors = [
+	'.recipe-callout',
+	'.tasty-recipes',
+	'.easyrecipe',
+	'.innerrecipe',
+	'.recipe-summary.wide', 
+	'.wprm-recipe-container',
+	'.recipe-content',
+	'.simple-recipe-pro',
+	'div[itemtype="http://schema.org/Recipe"]',
+	'div[itemtype="https://schema.org/Recipe"]',
+];
+
+const defaultSites = ['https://thepioneerwoman.com/cooking/',
+'https://www.therecipedepository.com/category/vegetarian',
+'https://www.therecipedepository.com/category/seafood']
+
+const siteContainers = ['.container', 
+'.grid-container',
+'#recipes',
+'.row',
+
+  ]
+
 // Load client secrets from a local file.
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname +'/public'));
@@ -28,19 +66,117 @@ if(process.env.NODE_ENV === 'production'){
 app.get('/',(req, res) => {
     res.sendFile(path.join(__dirname, '/public/Index.html'));
 });
-app.post('/', (req, res) => {
-  let data = req.body;
+app.post('/', (req, response) => {
   let mealType = (req.body.selector);
-  if (!data.mealName) {
-  sendData(mealType, res);
-} else {
-  let list = Object.values(data);
-  list = list.slice(1,list.length);
-  //call function to add data to sheet in appropriate columns
-  updateSheet(mealType, res, list);
-}
+  let found;
+  let final;
+  let data;
+
+  if(mealType === 'Breakfast'){
+    let site = cookbook.breakfast[Math.floor(Math.random()*cookbook.breakfast.length)]
+    testScraper(site).then(links =>{
+      let [index, array] = links
+      request(array[index], function(err, res, body) {
+        const $ = cheerio.load(body);
+        selectors.some(function(s){
+          if($(s).length > 0){
+             found =true;
+             data = $(s).html();
+             final = data;
+             response.send(final);
+          } else {
+            console.log(`couldn't find ingredients :/`)
+        }  
+        })
+    })
+    }).catch(err => console.log(err));
+
+    if(found===true){
+      console.log('working as expected')
+      response.send(final);
+    }
+  } else if(mealType === 'Lunch'){
+    let site = cookbook.lunch[Math.floor(Math.random()*cookbook.lunch.length)]
+    testScraper(site).then(links =>{
+      let [index, array] = links
+      request(array[index], function(err, res, body) {
+        const $ = cheerio.load(body);
+        selectors.some(function(s){
+          if($(s).length > 0){
+             found =true;
+             data = $(s).html();
+             final = data;
+             response.send(final);
+          } else {
+            console.log(`couldn't find ingredients :/`)
+        }  
+        })
+    })
+    }).catch(err => console.log(err));
+
+    if(found===true){
+      console.log('working as expected')
+      response.send(final);
+    }
+  } else if(mealType === 'Dinner'){
+    let site = cookbook.dinner[Math.floor(Math.random()*cookbook.dinner.length)]
+    testScraper(site).then(links =>{
+      let [index, array] = links
+      request(array[index], function(err, res, body) {
+        const $ = cheerio.load(body);
+        selectors.some(function(s){
+          console.log(s)
+          console.log($(s).length)
+          if($(s).length > 0){
+             found =true;
+             data = $(s).html();
+             final = data;
+             response.send(final);
+          } else {
+            console.log(`couldn't find ingredients :/`)
+        }  
+        })
+    })
+    }).catch(err => console.log(err));
+
+    if(found===true){
+      console.log('working as expected')
+      response.send(final);
+    }
+  }
+
+
 
 });
+
+async function testScraper(url){
+  let x=0;
+  let links = [];
+  await rp(url, function(err, res, body) {  
+    const $ = cheerio.load(body);
+    console.log(url)
+    selectors.some(function(s){
+      if($(s).length > 0){
+        console.log('found a match')
+    let randInt = Math.floor(Math.random() * $(s + ' a').length)
+    x=randInt
+    console.log(`number is: ${randInt}`)
+    $(s + ' a').each((i,elem)=>{
+        links.push($(elem).attr('href'))
+    } )
+    // console.log(body);
+      }
+    })
+})
+return [x, links]
+
+// await request(link, function(err, res, body) {
+//   console.log(body)
+// })
+}
+
+
+
 
 
 async function updateSheet(mealType, res, list){
