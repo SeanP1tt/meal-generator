@@ -146,6 +146,6 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 
 var http = require("http");
 setInterval(function() {
-    http.get("https://meal-generator.herokuapp.com/");
+    http.get("http://meal-generator.herokuapp.com/");
     console.log("poke 👉🏾");
 }, 300000); // every 5 minutes (300000)
