@@ -1,5 +1,5 @@
 body {
-  background-color: #004880;
+  /* background-color: #004880; */
   margin: 0;
 }
 
@@ -27,9 +27,7 @@ padding: .5%;
 margin: .5% auto;
 height: 20%;
 }
-.add-meal input,textarea,label {
-  display: block;
-}
+
 .add-meal textarea{
   height: 200px;
 }
@@ -42,9 +40,9 @@ margin-bottom: -1%;
 
 form {
   margin: 1% 15%;
-  border: 1px solid #1f233e;
+  /* border: 1px solid #1f233e; */
   padding: 1%;
-  background-color: #9DD5FF;
+  /* background-color: #9DD5FF; */
 }
 
 #generator-form {
@@ -90,20 +88,23 @@ background-color: #0091FF !important;
   font-size: 14px;
 }
 
-.generate-meal button,.generate-meal select, .add-meal button {
-  width: 25%;
+.generate-meal button,.settings select, .add-meal button {
+  width: 20%;
   height: 50px;
   border-radius: 2px;
   border-color: #1f233e;
   background-color: #0074CC;
-  margin-top: 30px;
   font-family: Work Sans, sans-serif;
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 0.3px;
   text-align: center;
   color: white;
-  margin-right: -3px;
+  margin: 2% auto;
+}
+.generate-meal button {
+  border-radius: 0.4rem;
+  box-shadow: inset 0 -0.4rem darkblue;
 }
 
 .inactive{
@@ -138,4 +139,89 @@ background-color: #0091FF !important;
 
 #meal-button:hover{
   background-color: #0091FF;
+}
+
+.loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: .5s;
+  animation-name: animatebottom;
+  animation-duration: .5s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+#settings-icon{
+  height: 100%;
+  width: 100%;
+  -webkit-animation: rotateicon 1.2s linear;
+  animation: rotateicon 1.2s linear;
+}
+
+@-webkit-keyframes rotateicon {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes rotateicon {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.settings-container{
+  width: 100%;
+}
+
+.settings{
+  width: 40%;
+  margin: 2% auto;
+  border: 1px solid;
+  border-radius: 1.4rem;
+}
+
+#settings-options{
+  width: 100%;
+}
+
+.icon{
+  width: 8%;
+    border: none;
+    margin: auto 2%;
+    position: relative;
+    top: 12px;
+    right: 38px;
 }
