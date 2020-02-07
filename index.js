@@ -55,70 +55,34 @@ app.get('/',(req, res) => {
 
 app.post('/', (req, response) => {
   let mealType = (req.body.selector);
-  let found;
   let final;
   let data;
+  let site;
   if(mealType === 'Breakfast'){
-    let site = cookbook.breakfast[Math.floor(Math.random()*cookbook.breakfast.length)]
-    testScraper(site).then(links =>{
-      let [index, array] = links
-      request(array[index], function(err, res, body) {
-        const $ = cheerio.load(body);
-        selectors.some(function(s){
-          console.log(s)
-          console.log($(s).length)
-          if($(s).length > 0){
-             found =true;
-             data = $(s).html();
-             final = data;
-             response.send(final);
-          } else {
-            console.log(`couldn't find ingredients :/`)
-        }  
-        })
-    })
-    }).catch(err => console.log(err));
+    site = cookbook.breakfast[Math.floor(Math.random()*cookbook.breakfast.length)]
   } else if(mealType === 'Lunch'){
-    let site = cookbook.lunch[Math.floor(Math.random()*cookbook.lunch.length)]
-    testScraper(site).then(links =>{
-      let [index, array] = links
-      request(array[index], function(err, res, body) {
-        const $ = cheerio.load(body);
-        selectors.some(function(s){
-          console.log(s)
-          console.log($(s).length)
-          if($(s).length > 0){
-             found =true;
-             data = $(s).html();
-             final = data;
-             response.send(final);
-          } else {
-            console.log(`couldn't find ingredients :/`)
-        }  
-        })
-    })
-    }).catch(err => console.log(err));
+    site = cookbook.lunch[Math.floor(Math.random()*cookbook.lunch.length)]
   } else if(mealType === 'Dinner'){
-    let site = cookbook.dinner[Math.floor(Math.random()*cookbook.dinner.length)]
-    testScraper(site).then(links =>{
-      let [index, array] = links
-      request(array[index], function(err, res, body) {
-        const $ = cheerio.load(body);
-        selectors.some(function(s){
-          console.log(s)
-          console.log($(s).length)
-          if($(s).length > 0){
-             found =true;
-             data = $(s).html();
-             final = data;
-             response.send(final);
-          } else {
-            console.log(`couldn't find ingredients :/`)
-        }  
-        })
-    })
-    }).catch(err => console.log(err));
+    site = cookbook.dinner[Math.floor(Math.random()*cookbook.dinner.length)]
   }
+  testScraper(site).then(links =>{
+    let [index, array] = links
+    request(array[index], function(err, res, body) {
+      const $ = cheerio.load(body);
+      selectors.some(function(s){
+        console.log(s)
+        console.log($(s).length)
+        if($(s).length > 0){
+           found =true;
+           data = $(s).html();
+           final = data;
+           response.send(final);
+        } else {
+          console.log(`couldn't find ingredients :/`)
+      }  
+      })
+  })
+  }).catch(err => console.log(err));
 });
 
 async function testScraper(url){
@@ -144,8 +108,4 @@ return [x, links]
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
-var http = require("http");
-setInterval(function() {
-    http.get("http://meal-generator.herokuapp.com/");
-    console.log("poke 👉🏾");
-}, 300000); // every 5 minutes (300000)
+

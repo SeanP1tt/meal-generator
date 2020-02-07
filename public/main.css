@@ -55,6 +55,11 @@ form {
   background-color: #9DD5FF;
 }
 
+#expressions-information h3, h4{
+  font-family: 'Lato', sans-serif;
+  font-weight: 800;
+}
+
 #expressions-information li {
   text-align: center;
   list-style-type: none;
@@ -224,4 +229,30 @@ background-color: #0091FF !important;
     position: relative;
     top: 12px;
     right: 38px;
+}
+
+.panel{
+  font-family: 'Lato', sans-serif;
+}
+
+@media screen and (max-width: 800px) {
+  .generate-meal button, .settings select, .add-meal button {
+    width: 70%;
+    height: 50px;
+    border-radius: 2px;
+    border-color: #1f233e;
+    background-color: #0074CC;
+    font-family: Work Sans, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    text-align: center;
+    color: white;
+    margin: 2% auto;
+}
+
+.panel img{
+width: 90%;
+}
+
 }
